@@ -1,0 +1,322 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Lean Bulk Studio — charcoal / steel blue / neon mint palette.
+     Values below are the DARK-theme values; the :root (light) and .dark
+     blocks further down remap these variables per theme, so every
+     hard-coded utility class (bg-charcoal-850, text-steel-300, …) stays
+     fully theme-aware. */
+  --color-charcoal-950: #070b0f;
+  --color-charcoal-900: #0c1218;
+  --color-charcoal-850: #111a23;
+  --color-charcoal-800: #17212c;
+  --color-charcoal-700: #223041;
+  --color-charcoal-600: #2d3f54;
+
+  --color-steel-100: #e4eef7;
+  --color-steel-200: #cfe2f1;
+  --color-steel-300: #a8c8e2;
+  --color-steel-400: #7fa9cc;
+  --color-steel-500: #5d8db8;
+  --color-steel-600: #47709c;
+  --color-steel-700: #38597e;
+
+  --color-mint-300: #7cffbc;
+  --color-mint-400: #3dffa8;
+  --color-mint-500: #22e78d;
+  --color-mint-600: #14b56c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ---------------------------------------------------------------------------
+   Light theme (default) — all WCAG AA text pairs verified ≥ 4.5:1
+--------------------------------------------------------------------------- */
+:root {
+  --radius: 0.625rem;
+  color-scheme: light;
+
+  /* shadcn semantic tokens — light */
+  --background: #f4f7fa;
+  --foreground: #182430;
+  --card: #ffffff;
+  --card-foreground: #182430;
+  --popover: #ffffff;
+  --popover-foreground: #182430;
+  --primary: #086640;
+  --primary-foreground: #ffffff;
+  --secondary: #e8eef4;
+  --secondary-foreground: #24384c;
+  --muted: #e8eef4;
+  --muted-foreground: #4f6076;
+  --accent: #dfe9f2;
+  --accent-foreground: #182430;
+  --destructive: #d3352b;
+  --border: rgba(20, 33, 47, 0.14);
+  --input: rgba(20, 33, 47, 0.2);
+  --ring: #47709c;
+  --chart-1: #0a7549;
+  --chart-2: #47709c;
+  --chart-3: #7fa9cc;
+  --chart-4: #065233;
+  --chart-5: #cbd5e1;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #182430;
+  --sidebar-primary: #086640;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dfe9f2;
+  --sidebar-accent-foreground: #182430;
+  --sidebar-border: rgba(20, 33, 47, 0.14);
+  --sidebar-ring: #47709c;
+
+  /* ambient body glow + scrollbar (theme-aware) */
+  --glow-a: rgba(71, 112, 156, 0.12);
+  --glow-b: rgba(8, 122, 75, 0.06);
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+
+  /* Brand-palette remap (light): charcoal becomes paper, steel/mint darken
+     so text keeps ≥ 4.5:1 on light surfaces. */
+  --color-charcoal-950: #ffffff;
+  --color-charcoal-900: #f8fafc;
+  --color-charcoal-850: #eef2f7;
+  --color-charcoal-800: #e2e8f0;
+  --color-charcoal-700: #cbd5e1;
+  --color-charcoal-600: #94a3b8;
+
+  --color-steel-100: #14212f;
+  --color-steel-200: #1c2f42;
+  --color-steel-300: #33475c;
+  --color-steel-400: #40618a;
+  --color-steel-500: #47709c;
+  --color-steel-600: #3f6690;
+  --color-steel-700: #2d4d73;
+
+  --color-mint-300: #0b8054;
+  --color-mint-400: #0a7549;
+  --color-mint-500: #086640;
+  --color-mint-600: #065233;
+
+  /* Neutral text bumps for ≥ 4.5:1 on light surfaces */
+  --color-slate-300: #3d4f63;
+  --color-slate-400: #475569;
+  --color-slate-500: #5c6b80;
+  --color-slate-600: #64748b;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark theme — the original look, restated in full so html.dark always wins
+   over the :root light remap, plus a few contrast fixes (WCAG AA)
+--------------------------------------------------------------------------- */
+.dark {
+  color-scheme: dark;
+
+  --background: #070b0f;
+  --foreground: #e8eef4;
+  --card: #0c1218;
+  --card-foreground: #e8eef4;
+  --popover: #111a23;
+  --popover-foreground: #e8eef4;
+  --primary: #22e78d;
+  --primary-foreground: #04130b;
+  --secondary: #17212c;
+  --secondary-foreground: #cfe2f1;
+  --muted: #111a23;
+  --muted-foreground: #8fa0b3;
+  --accent: #17212c;
+  --accent-foreground: #e8eef4;
+  --destructive: #e5484d;
+  --border: rgba(148, 173, 200, 0.14);
+  --input: rgba(148, 173, 200, 0.2);
+  --ring: #5d8db8;
+  --chart-1: #3dffa8;
+  --chart-2: #5d8db8;
+  --chart-3: #a8c8e2;
+  --chart-4: #14b56c;
+  --chart-5: #2d3f54;
+  --sidebar: #0c1218;
+  --sidebar-foreground: #e8eef4;
+  --sidebar-primary: #47709c;
+  --sidebar-primary-foreground: #f2f7fb;
+  --sidebar-accent: #17212c;
+  --sidebar-accent-foreground: #e8eef4;
+  --sidebar-border: rgba(148, 173, 200, 0.14);
+  --sidebar-ring: #5d8db8;
+
+  --glow-a: rgba(93, 141, 184, 0.1);
+  --glow-b: rgba(34, 231, 141, 0.05);
+  --scrollbar-thumb: #223041;
+  --scrollbar-thumb-hover: #2d3f54;
+
+  --color-charcoal-950: #070b0f;
+  --color-charcoal-900: #0c1218;
+  --color-charcoal-850: #111a23;
+  --color-charcoal-800: #17212c;
+  --color-charcoal-700: #223041;
+  --color-charcoal-600: #2d3f54;
+
+  --color-steel-100: #e4eef7;
+  --color-steel-200: #cfe2f1;
+  --color-steel-300: #a8c8e2;
+  --color-steel-400: #7fa9cc;
+  --color-steel-500: #5d8db8;
+  --color-steel-600: #47709c;
+  --color-steel-700: #38597e;
+
+  --color-mint-300: #7cffbc;
+  --color-mint-400: #3dffa8;
+  --color-mint-500: #22e78d;
+  --color-mint-600: #14b56c;
+
+  /* Neutral contrast bumps: slate-500 was 3.9:1 on charcoal (fails AA for
+     small text) — lifted to 6.3:1. */
+  --color-slate-500: #8698ad;
+  --color-slate-600: #64748b;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(
+        1100px 640px at 85% -12%,
+        var(--glow-a),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 560px at -10% 108%,
+        var(--glow-b),
+        transparent 55%
+      );
+    background-attachment: fixed;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* WCAG 2.4.7 (focus visible) + 2.4.13 (focus appearance):
+     one consistent, high-contrast 2px focus indicator everywhere.
+     shadcn/radix components keep their own ring via utility classes. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline-offset: 0;
+  }
+
+  /* Hide number input spinners for clean numeric pads */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  /* Custom scrollbars (webkit) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  ::selection {
+    background: rgba(61, 255, 168, 0.28);
+    color: #05130c;
+  }
+  :root:not(.dark) ::selection {
+    background: rgba(10, 117, 73, 0.2);
+    color: #182430;
+  }
+
+  /* WCAG 2.3.3 (animation from interactions) — honour reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .text-glow-mint {
+    text-shadow: 0 0 18px rgba(61, 255, 168, 0.45);
+  }
+  :root:not(.dark) .text-glow-mint {
+    text-shadow: none;
+  }
+}
